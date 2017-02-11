@@ -1,0 +1,32 @@
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\ShoppingList.dll
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\ShoppingList.pdb
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\AppManifest.xaml
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\ShoppingList.xap
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\softdev\wp7\ShoppingList\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\ResolveAssemblyReference.cache
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\App.g.i.cs
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\MainPage.g.i.cs
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\ShoppingList.g.resources
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\ShoppingList.dll
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\ShoppingList.pdb
+C:\softdev\wp7\ShoppingList\ShoppingList\obj\Debug\XapCacheFile.xml
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\ShoppingList.dll
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\ShoppingList.pdb
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\AppManifest.xaml
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\ShoppingList.xap
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.dll
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.xml
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\ResolveAssemblyReference.cache
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\App.g.i.cs
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\MainPage.g.i.cs
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\ShoppingList.g.resources
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\ShoppingList.dll
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\ShoppingList.pdb
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\XapCacheFile.xml
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.Toolkit.pdb
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\Bin\Debug\Microsoft.Phone.Controls.Toolkit.xml
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\Dialogs\ChangeAisleDialog.g.i.cs
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\Dialogs\RenameListDialog.g.i.cs
+C:\softdev\wp7\ShoppingList Pro\ShoppingList\obj\Debug\Dialogs\ConfirmationDialog.g.i.cs

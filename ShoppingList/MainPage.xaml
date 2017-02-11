@@ -1,0 +1,294 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ShoppingList.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:extendedControls="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:l="clr-namespace:ShoppingList"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800" 
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    Background="{StaticResource PhoneBackgroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False" Loaded="PhoneApplicationPage_Loaded"
+    BackKeyPress="PhoneApplicationPage_BackKeyPress">
+    <phone:PhoneApplicationPage.Resources>
+        <l:CheckBoxConverter x:Key="CheckBoxConverter" />
+    </phone:PhoneApplicationPage.Resources>
+
+        <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">  
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <Grid Height="730" VerticalAlignment="Top" x:Name="mainContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="rowList" />
+                <RowDefinition x:Name="rowAdd" Height="0" />
+            </Grid.RowDefinitions>
+            
+            <!--Panorama control-->
+            <controls:Panorama Title="Shopping List" Grid.Row="0">
+                <controls:Panorama.Background>
+                    <SolidColorBrush Color="Transparent" />
+                </controls:Panorama.Background>
+ 
+                <!--Panorama item one-->
+                <controls:PanoramaItem>
+                    <controls:PanoramaItem.Header>
+                        <Grid Width="432">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="180" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="56" Margin="0,0,20,0" Text="{Binding Name}" FontStretch="Condensed" 
+                                       TextWrapping="NoWrap" x:Name="txtListName">
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" FontSize="30" 
+                                       VerticalAlignment="Center" x:Name="txtAddListItem"
+                                       MouseLeftButtonDown="txtAddListItem_MouseLeftButtonDown">
+                                (+ add item)
+                            </TextBlock>
+                        </Grid>
+                    </controls:PanoramaItem.Header>
+                
+                    <!--Double line list with text wrapping-->
+                    <ListBox Grid.Row="1" Margin="0,0,-12,0" ItemsSource="{Binding ShoppingList.ShoppingListItems}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="305" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="67" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="0,0,0,5" Width="350">
+                                        <TextBlock Text="{Binding ItemName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding ItemDescription}" TextWrapping="Wrap" Margin="5,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+
+                                    <Border Background="#333333" Grid.Column="1" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Aisle}" 
+                                               MouseLeftButtonDown="AisleSelector_MouseLeftButtonDown" 
+                                               Style="{StaticResource PhoneTextLargeStyle}" 
+                                               HorizontalAlignment="Center" Margin="0,5,0,0" />
+
+                                    <Grid Background="Black" Grid.Column="2" VerticalAlignment="Stretch" Margin="0,-12,0,0"
+                                          HorizontalAlignment="Stretch">
+                                        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
+                                                    MouseLeftButtonDown="CheckItem_MouseLeftButtonDown" TextAlignment="Center"
+                                                    Foreground="White" Text="{Binding IsChecked, Converter={StaticResource CheckBoxConverter}}" />
+                                    </Grid>
+
+                                    <!-- We are going to move removing items into the Manage Items pane -->
+                                    <!--<Button Grid.Column="2" FontSize="18" x:Name="btnRemoveItem"
+                                               DataContext="{Binding}" Content="X" VerticalAlignment="Center" 
+                                               Click="btnRemoveItem_Click" />-->
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </controls:PanoramaItem>
+ 
+                <!--Panorama item two HISTORY-->
+                <controls:PanoramaItem>
+                    <controls:PanoramaItem.Header>
+                        <Grid Width="432">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="180" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="56" Margin="0,0,20,0">
+                                History
+                            </TextBlock>
+                            <TextBlock Grid.Column="1" FontSize="25" 
+                                       VerticalAlignment="Center" >
+                                (make current)
+                            </TextBlock>
+                        </Grid>
+                    </controls:PanoramaItem.Header>
+
+                    <ListBox Grid.Row="1" Margin="0,0,-12,0" ItemsSource="{Binding ShoppingListHistory}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Background="Black" Grid.Column="2" VerticalAlignment="Stretch" Margin="0,-12,0,0"
+                                          HorizontalAlignment="Stretch">
+                                        <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
+                                                    Foreground="White" Text="{Binding Name}" />
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </controls:PanoramaItem>
+                
+                <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
+                <controls:PanoramaItem Header="About">
+                    <ListBox Margin="25,0,-12,25">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <StackPanel Width="432">                                    
+                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                        <TextBlock Text="{Binding Date}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        
+                        <TextBlock Text="Created by Scott Rehlander" />
+                        <TextBlock Text="   Thanks for using my simple shopping list!"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="Be on the lookout for the pro version"/>
+                        <TextBlock Text="   coming soon!"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" Special thanks goes out to Andrew Carretta "/>
+                        <TextBlock Text="   (ichirorabbit) for the awesome icon art!"/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text=" "/>
+                        <TextBlock Text="    Copyright Rehlander Technologies - 2010" />
+                        <TextBlock Margin="80,0,0,0" Text="http://www.rehlander.com" TextDecorations="Underline"
+                                   MouseLeftButtonDown="rehlanderLink_MouseLeftButtonDown" />
+                    </ListBox>
+                </controls:PanoramaItem>
+                
+            </controls:Panorama>
+        
+            <!-- Add Shopping List Item -->
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="250" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+            
+                <!-- Add New Item-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="80"  />
+                        <RowDefinition Height="80"  />
+                    </Grid.RowDefinitions>
+                
+                    <!-- Name Row -->
+                    <TextBlock Margin="10">Name:</TextBlock>
+                    <TextBox Grid.Column="1" Width="280" Height="80"
+                             HorizontalAlignment="Center" VerticalAlignment="Top" 
+                             x:Name="txtNewItemName" />
+                
+                    <!-- Description Row -->
+                    <TextBlock Grid.Row="1" Margin="10" >Description:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Width="280" Height="80"
+                             HorizontalAlignment="Center" VerticalAlignment="Top" 
+                             x:Name="txtNewItemDescription" />
+
+                    <!-- Add existing item -->
+
+                    <!-- Confirm / Cancel -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                            HorizontalAlignment="Center" Grid.ColumnSpan="2">
+                        <Button x:Name="btnOkAddItem"
+                            Click="btnOkAddItem_Click" Content="OK"></Button>
+                        <Button x:Name="btnCancelAddItem"
+                            Click="btnCancelAddItem_Click" Content="Cancel"></Button>
+                    </StackPanel>
+                </Grid>
+            
+                
+            </Grid>
+        
+        </Grid>
+
+
+        <Grid x:Name="gridSpash" Height="0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+                
+            <Grid Background="Black" Grid.Row="0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom"
+                            Margin="0,0,0,30">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="EZ Shopping List" FontSize="50" Foreground="White"
+                               FontWeight="Bold"/>
+                
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="Rehlander Technologies © 2010" Foreground="White"
+                               Margin="0,70,0,0" FontSize="25"/>
+                </StackPanel>
+            </Grid>
+            
+            <Canvas Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Canvas.Background>
+                    <SolidColorBrush Color="Black"/>
+                </Canvas.Background>
+                <Image x:Name="imgSpashAni" Source="Large PC app icon.png" 
+                    Width="200" Height="200" Canvas.Top="85" 
+                    Canvas.Left="-250">
+                    <Image.Resources>
+                        <Storyboard x:Name="shoppingCartAnimation">
+                            <DoubleAnimationUsingKeyFrames  
+                                    Storyboard.TargetName="imgSpashAni"
+                                    Storyboard.TargetProperty="(Canvas.Left)">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="-250"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="550"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </Image.Resources>
+                </Image>
+            </Canvas>
+        </Grid>
+
+        <!--Panorama-based applications should not show an ApplicationBar-->
+        <!-- So i faked it -->
+        <Border Background="#333333" Grid.Row="1" BorderBrush="White" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Vertical" MouseLeftButtonDown="RenameList_MouseLeftButtonDown">
+                    <TextBlock Foreground="White" Text=">" FontSize="40" Margin="35,6,35,-2" FontFamily="Webdings" />
+                    <TextBlock Foreground="White" Text="Rename List" FontSize="14" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" MouseLeftButtonDown="newList_MouseLeftButtonDown">
+                    <TextBlock Foreground="White" Text="Í" FontSize="40" Margin="35,6,35,-2" FontFamily="Webdings" />
+                    <TextBlock Foreground="White" Text="New List" FontSize="14" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Foreground="White" Text="i" FontSize="40" Margin="35,6,35,-2" FontFamily="Webdings" />
+                    <TextBlock Foreground="White" Text="Manage Items" FontSize="14" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" MouseLeftButtonDown="uncheckAll_MouseLeftButtonDown">
+                    <TextBlock Foreground="White" Text="q" FontSize="40" Margin="35,6,35,-2" FontFamily="Webdings" />
+                    <TextBlock Foreground="White" Text="Uncheck All" FontSize="14" HorizontalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+ 
+    
+
+</phone:PhoneApplicationPage>
